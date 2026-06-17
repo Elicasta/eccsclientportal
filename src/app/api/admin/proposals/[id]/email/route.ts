@@ -30,11 +30,28 @@ export async function POST(
       return NextResponse.json({ error: 'Proposal not found' }, { status: 404 })
     }
 
+    const raw = data as any
+
     const proposal: ProposalWithDetails = {
-      ...data,
-      client: data.clients,
-      template: data.proposal_templates,
-      packages: data.proposal_packages?.sort((a: any, b: any) => a.sort_order - b.sort_order) ?? [],
+      id: raw.id,
+      client_id: raw.client_id,
+      template_id: raw.template_id,
+      slug: raw.slug,
+      status: raw.status,
+      session_type: raw.session_type,
+      preferred_date: raw.preferred_date,
+      personal_note: raw.personal_note,
+      studio_rental_note: raw.studio_rental_note,
+      pixieset_quote_link: raw.pixieset_quote_link,
+      pixieset_invoice_link: raw.pixieset_invoice_link,
+      expiration_date: raw.expiration_date,
+      sent_at: raw.sent_at,
+      viewed_at: raw.viewed_at,
+      created_at: raw.created_at,
+      updated_at: raw.updated_at,
+      client: raw.clients,
+      template: raw.proposal_templates,
+      packages: (raw.proposal_packages ?? []).sort((a: any, b: any) => a.sort_order - b.sort_order),
     }
 
     let emailId: string
