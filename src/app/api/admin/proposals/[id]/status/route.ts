@@ -34,7 +34,7 @@ export async function PATCH(
 
     if (error) throw error
 
-    await supabase.from('proposal_events').insert({
+    await (supabase.from('proposal_events') as any).insert({
       proposal_id: id,
       event_type: 'status_changed',
       metadata: { new_status: status, updated_by: 'admin' },

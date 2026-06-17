@@ -22,7 +22,7 @@ export async function trackEvent({
   try {
     const supabase = createServerAdminClient()
 
-    await supabase.from('proposal_events').insert({
+    await (supabase.from('proposal_events') as any).insert({
       proposal_id: proposalId,
       client_id: clientId ?? null,
       event_type: eventType,

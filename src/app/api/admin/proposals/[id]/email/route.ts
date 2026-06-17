@@ -58,7 +58,7 @@ export async function POST(
 
     if (type === 'proposal') {
       emailId = await sendProposalEmail(proposal)
-      await supabase.from('proposal_events').insert({
+      await (supabase.from('proposal_events') as any).insert({
         proposal_id: id,
         client_id: proposal.client_id,
         event_type: 'email_sent',
@@ -66,7 +66,7 @@ export async function POST(
       })
     } else {
       emailId = await sendInvoiceReadyEmail(proposal)
-      await supabase.from('proposal_events').insert({
+      await (supabase.from('proposal_events') as any).insert({
         proposal_id: id,
         client_id: proposal.client_id,
         event_type: 'email_sent',

@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
 
     // 3. Create packages
     if (body.packages?.length) {
-      const { error: pkgErr } = await supabase.from('proposal_packages').insert(
+      const { error: pkgErr } = await (supabase.from('proposal_packages') as any).insert(
         body.packages.map(p => ({
           proposal_id: proposal.id,
           package_name: p.package_name,
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 4. Log creation event
-    await supabase.from('proposal_events').insert({
+    await (supabase.from('proposal_events') as any).insert({
       proposal_id: proposal.id,
       client_id: client.id,
       event_type: 'proposal_created',

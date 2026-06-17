@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Insert event
-    await supabase.from('proposal_events').insert({
+    await (supabase.from('proposal_events') as any).insert({
       proposal_id: proposalId,
       client_id: proposal.client_id,
       event_type: eventType,

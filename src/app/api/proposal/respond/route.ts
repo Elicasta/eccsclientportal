@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Insert client response
-    await supabase.from('client_responses').insert({
+    await (supabase.from('client_responses') as any).insert({
       proposal_id: proposalId,
       selected_package_id: selectedPackageId ?? null,
       response_type: responseType,
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
         .update({ status: newStatus })
         .eq('id', proposalId)
 
-      await supabase.from('proposal_events').insert({
+      await (supabase.from('proposal_events') as any).insert({
         proposal_id: proposalId,
         client_id: proposal.client_id,
         event_type: 'status_changed',
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       not_ready: 'client_not_ready',
     }
 
-    await supabase.from('proposal_events').insert({
+    await (supabase.from('proposal_events') as any).insert({
       proposal_id: proposalId,
       client_id: proposal.client_id,
       event_type: eventTypeMap[responseType],

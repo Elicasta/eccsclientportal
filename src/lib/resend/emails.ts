@@ -207,7 +207,7 @@ export async function sendProposalEmail(proposal: ProposalWithDetails): Promise<
   if (error) throw new Error(`Resend error: ${error.message}`)
 
   // Log the email
-  await supabase.from('email_logs').insert({
+  await (supabase.from('email_logs') as any).insert({
     proposal_id: proposal.id,
     resend_email_id: data?.id ?? null,
     to_email: proposal.client.email,
@@ -245,7 +245,7 @@ export async function sendInvoiceReadyEmail(proposal: ProposalWithDetails): Prom
 
   if (error) throw new Error(`Resend error: ${error.message}`)
 
-  await supabase.from('email_logs').insert({
+  await (supabase.from('email_logs') as any).insert({
     proposal_id: proposal.id,
     resend_email_id: data?.id ?? null,
     to_email: proposal.client.email,
